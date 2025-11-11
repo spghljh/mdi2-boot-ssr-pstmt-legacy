@@ -1,4 +1,4 @@
-name: Build and Push Docker Image - mdi2-boot-pstmt-legacy
+name: Build and Push Docker Image - mdi2-boot-ssr-pstmt-legacy
 
 on:
   push:
@@ -32,7 +32,7 @@ jobs:
 
       - name: Print Build Metadata
         run: |
-          echo "App Name: mdi2-boot-pstmt-legacy"
+          echo "App Name: mdi2-boot-ssr-pstmt-legacy"
           echo "Build Time (UTC): ${{ env.BUILD_TIMESTAMP }}"
           echo "Branch: ${{ github.ref }}"
           echo "Triggered by: ${{ github.actor }}"
@@ -59,7 +59,7 @@ jobs:
       - name: Upload JAR as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: mdi2-jar-${{ env.COMMIT_MSG }}
+          name: mdi2-boot-ssr-pstmt-legacy-jar-${{ env.COMMIT_MSG }}
           path: target/*.jar
 
       - name: Log in to Docker Hub
@@ -73,6 +73,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mdi2-prj-pstmt:mdi2-jar-${{ env.COMMIT_MSG }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mdi2-boot-ssr-pstmt-legacy:mdi2-boot-ssr-pstmt-legacy-jar-${{ env.COMMIT_MSG }}
           build-args: |
             JAR_FILE=${{ env.JAR_NAME }}
